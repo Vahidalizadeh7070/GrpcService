@@ -1,0 +1,104 @@
+syntax ="proto3";
+option csharp_namespace = "CategoryServiceGrpc";
+
+import "google/api/annotations.proto";
+
+package category;
+
+service Categories{
+	// Create category
+	rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse){
+		option (google.api.http) = {
+			post : "/api/Category",
+			body : "*"
+		};
+	}
+
+	// Edit category
+	rpc EditeCategory (EditCategoryRequest) returns (EditCategoryResponse){
+		option (google.api.http) = {
+			put : "/api/Category",
+			body : "*"
+		};
+	}
+	// List of All Categories
+	rpc ListCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse){
+		option (google.api.http) ={
+			get : "/api/category"
+		};
+	}
+	
+	// Get a category based on the id
+	rpc GetCategoryById(GetCategoryRequest) returns (GetCategoryResponse){
+		option (google.api.http) ={
+			get : "/api/category/{id}"
+		};
+	}
+
+	// Delete category
+	rpc DeleteCategory(DeleteCategoryRequest) returns (DeleteCategoryResponse){
+		option (google.api.http) = {
+			delete : "/api/category/{id}"
+		};
+	}
+}
+
+// contract for each function
+
+// Create category
+message CreateCategoryRequest{
+	string name = 1;
+	bool enable = 2;
+}
+
+message CreateCategoryResponse{
+	string id = 1;
+	string name = 2;
+	bool enable = 3;
+	string created_at = 4;
+}
+
+// Edit category
+message EditCategoryRequest{
+	string id = 1;
+	string name = 2;
+	bool enable = 3;
+}
+
+message EditCategoryResponse{
+	string id = 1;
+	string name = 2;
+	bool enable = 3;
+	string created_at = 4;
+}
+
+// Get a category based on the id
+message GetCategoryRequest{
+	string id =1;
+}
+message GetCategoryResponse{
+	string id = 1;
+	string name = 2;
+	bool enable = 3;
+	string created_at =4;
+}
+
+// List of all categories
+message GetAllCategoriesRequest
+{
+
+}
+message GetAllCategoriesResponse
+{
+	repeated GetCategoryResponse category = 1;
+}
+
+// Delete a category
+message DeleteCategoryRequest {
+	string id = 1;
+
+}
+message DeleteCategoryResponse{
+	string id = 1;
+	string name = 2;
+}
